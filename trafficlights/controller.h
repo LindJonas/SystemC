@@ -35,7 +35,7 @@ SC_MODULE(Controller)
   void add_cars();
   void control_lights();
   void print_method();
-
+  std::string dirConvert(const int);
 };
 
 #endif

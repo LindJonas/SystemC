@@ -35,7 +35,7 @@ void Controller::add_cars()
     if(!arrive_old[i] && arrive[i])
     {
       waiting_cars[i]++;
-      cerr << "Added car, direction: " << i  << " \n";
+      cerr << "Added car, direction: " << dirConvert(i)  << " \n";
       // mabye signal that cars have arrived here!
     }
     arrive_old[i] = arrive[i];
@@ -68,7 +68,7 @@ void Controller::control_lights()
       //since cars have arived and are waiting print light status.
       green[current_max_direction] = true; // turn green on longest queue
       controls[current_max_direction] = true;
-      cerr << "Green on: " << current_max_direction << "\n";
+      cerr << "Green on: " << dirConvert(current_max_direction) << "\n";
       opposite_light = (current_max_direction + 2) % 4;
 
       for(int i = 0; i < 5; i++)
@@ -78,7 +78,7 @@ void Controller::control_lights()
 	if (waiting_cars[opposite_light] > 0) // if opposite queue have cars waiting
 	{
 	  if (green[opposite_light] == false)
-	    cerr << "Green on: " << opposite_light << "\n";
+	    cerr << "Green on: " << dirConvert(opposite_light) << "\n";
 	  green[opposite_light] = true; // let them pass aswell
 	  controls[opposite_light] = true;
 
@@ -87,24 +87,24 @@ void Controller::control_lights()
 	if (waiting_cars[current_max_direction] > 0)
 	{
 	  waiting_cars[current_max_direction]--;
-	  cerr << "Car drives past from: " << current_max_direction << " (Max direction)\n";
+	  cerr << "Car drives past from: " << dirConvert(current_max_direction) << " (Max direction)\n";
 	}
 
 	if (green[opposite_light])
 	  if (waiting_cars[opposite_light] > 0)
 	  {
 	    waiting_cars[opposite_light]--;
-	    cerr << "Car drives past from: " << opposite_light << " (Opposite)\n";
+	    cerr << "Car drives past from: " << dirConvert(opposite_light) << " (Opposite)\n";
 	  }
       }
 
       green[opposite_light] = false;
       controls[opposite_light] = false;
-      cerr << "Red on: " << opposite_light << "\n";
+      cerr << "Red on: " << dirConvert(opposite_light) << "\n";
 
       green[current_max_direction] = false;
       controls[current_max_direction] = false;
-      cerr << "Red on: " << current_max_direction << "\n";
+      cerr << "Red on: " << dirConvert(current_max_direction) << "\n";
     } // all lights turned off
     else
     {
@@ -116,10 +116,23 @@ void Controller::control_lights()
 
 void Controller::print_method()
 {
-  // DONT FORGETTI THE TIMESTAMPI sc_time_stamp()
-  cerr<< "#################################";
-  cerr << "Directions: N=0, W=1, S=2, E=3\n";
-  cerr << "Cars waiting:\n";
+  cerr << "======================================\n"
+       << "Cars waiting:\n";
   for(int i = 0; i < nr_lights; i++)
-    cerr << ": " << waiting_cars[i] << " Cars waiting at: " << i << endl;
+    cerr << waiting_cars[i] << " Cars waiting at: " << dirConvert(i) << endl;
+  cerr << "======================================\n";
+}
+
+string Controller::dirConvert(const int dir)
+{
+  if (dir == 0)
+    return "North";
+  else if (dir == 1)
+    return "West";
+  else if (dir == 2)
+    return "South";
+  else if (dir == 3)
+    return "East";
+  else
+    return "Invalid direction!!";
 }
