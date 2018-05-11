@@ -1,3 +1,18 @@
+#ifndef SENSOR_H
+#define SENSOR_H
 
-if sensor waiting_cars[i] true 
-waitng_vars[i]++
+#include <systemc.h>
+
+SC_MODULE(Sensor)
+{
+  sc_out<bool> car_arrive;
+
+  SC_HAS_PROCESS(Sensor);
+  Sensor(sc_module_name name);
+
+  int random(int,int);
+  void generate_output();
+
+};
+
+#endif

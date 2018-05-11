@@ -12,18 +12,18 @@ Controller::Controller(sc_module_name name) : sc_module(name)
 
   for(int i = 0; i < nr_lights; i++)
   {
+    cout << i << "...";
     //arrive[i].initialize(false);
-    controls[i].write(false);//sc_signal<bool>("controls_" + c_str(i));
+    controls[i].initialize(false);
     waiting_cars[i] = 0;
     green[i] = false;
+    arrive_old[i] = false;
   }
 
   SC_METHOD(add_cars);
   dont_initialize();
   for(unsigned i=0; i < nr_lights; i++) // work?
     sensitive << arrive[i];
-
-
 
   SC_THREAD(control_lights);
 }
@@ -32,11 +32,13 @@ void Controller::add_cars()
 {
   for(int i = 0; i < nr_lights; i++)
   {
-    if(arrive[i])
+    if(!arrive_old[i] && arrive[i])
     {
       waiting_cars[i]++;
+      cerr << "Added car, direction: " << i  << " \n";
       // mabye signal that cars have arrived here!
     }
+    arrive_old[i] = arrive[i];
   }
 }
 
@@ -51,7 +53,6 @@ void Controller::control_lights()
   {
     current_max_direction = -1;
     opposite_light = -1;
-
     for(int i = 0; i < nr_lights; i++)
     { // check what lane have the most cars in it.
       if(waiting_cars[i] > max_cars)
@@ -63,52 +64,62 @@ void Controller::control_lights()
 
     if(current_max_direction != -1)
     {// if there is cars waiting somewhere
+      print_method();
+      //since cars have arived and are waiting print light status.
       green[current_max_direction] = true; // turn green on longest queue
       controls[current_max_direction] = true;
-
+      cerr << "Green on: " << current_max_direction << "\n";
       opposite_light = (current_max_direction + 2) % 4;
-      if (waiting_cars[opposite_light] > 0) // if opposite queue have cars waiting
-      {
-	green[opposite_light] = true; // let them pass aswell
-	controls[opposite_light] = true;
-      }
 
       for(int i = 0; i < 5; i++)
       {
 	wait(1,SC_SEC);
-	waiting_cars[current_max_direction]--; // wait 5 secounds and remove 5 cars periodically.
+
+	if (waiting_cars[opposite_light] > 0) // if opposite queue have cars waiting
+	{
+	  if (green[opposite_light] == false)
+	    cerr << "Green on: " << opposite_light << "\n";
+	  green[opposite_light] = true; // let them pass aswell
+	  controls[opposite_light] = true;
+
+	}
+
+	if (waiting_cars[current_max_direction] > 0)
+	{
+	  waiting_cars[current_max_direction]--;
+	  cerr << "Car drives past from: " << current_max_direction << " (Max direction)\n";
+	}
+
 	if (green[opposite_light])
-	  waiting_cars[opposite_light]--;
+	  if (waiting_cars[opposite_light] > 0)
+	  {
+	    waiting_cars[opposite_light]--;
+	    cerr << "Car drives past from: " << opposite_light << " (Opposite)\n";
+	  }
       }
 
       green[opposite_light] = false;
       controls[opposite_light] = false;
+      cerr << "Red on: " << opposite_light << "\n";
 
       green[current_max_direction] = false;
       controls[current_max_direction] = false;
+      cerr << "Red on: " << current_max_direction << "\n";
     } // all lights turned off
+    else
+    {
+      //print_method();
+      wait(0.2,SC_SEC);
+    }
   }
 }
 
 void Controller::print_method()
 {
   // DONT FORGETTI THE TIMESTAMPI sc_time_stamp()
-  cout << "#################################";
-  cout << "Directions: N=0, W=1, S=2, E=3\n";
-  cout << "Cars waiting:\n";
-
+  cerr<< "#################################";
+  cerr << "Directions: N=0, W=1, S=2, E=3\n";
+  cerr << "Cars waiting:\n";
   for(int i = 0; i < nr_lights; i++)
-    cout << sc_time_stamp << ": " << waiting_cars[i] << "Cars waiting at" << i << endl;;
-  // PRINT CARS ARRIVING
-  for(int i = 0; i < nr_lights; i++)
-  {
-    if(arrive[i].read())
-      cout << sc_time_stamp << ": Car arrive at" << i << endl;
-  }
-  for(int i = 0; i < nr_lights; i++)
-  {
-    if(controls[i].read())
-      cout << sc_time_stamp << ": Lights are ON at" << i << endl;
-  }
-
+    cerr << ": " << waiting_cars[i] << " Cars waiting at: " << i << endl;
 }

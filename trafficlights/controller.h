@@ -13,6 +13,8 @@ SC_MODULE(Controller)
   // use standard vector.
 
   sc_in<bool> arrive[nr_lights];
+  bool arrive_old[nr_lights];
+
   sc_out<bool> controls[nr_lights];
 
   //std::vector<sc_in<bool> > arrive(nr_lights);
@@ -33,6 +35,7 @@ SC_MODULE(Controller)
   void add_cars();
   void control_lights();
   void print_method();
+
 };
 
 #endif

@@ -8,7 +8,7 @@ SRCS = divider.cc input_gen.cc monitor.cc divider_testbench.cc
 ## DO NOT CHANGE ANYTHING BELOW ##
 ##################################
 
-SYSTEMC = /home/TDTS07/sw/systemc
+SYSTEMC = /usr/local/system-2.3.1/
 TARGET_ARCH = linux64
 
 LIBDIR = -L. -L.. -L$(SYSTEMC)/lib-$(TARGET_ARCH)

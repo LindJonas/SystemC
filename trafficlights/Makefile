@@ -2,7 +2,7 @@
 PROGRAM = lights.x
 
 # The source files (*.cc)
-SRCS = lights.cc controller.cc lights_testbench.cc
+SRCS = lights.cc controller.cc lights_testbench.cc sensor.cc
 
 ##################################
 ## DO NOT CHANGE ANYTHING BELOW ##
@@ -47,6 +47,9 @@ lights_testbench.o: lights_testbench.cc lights.h controller.h
 
 lights.o: lights.cc lights.h
 	$(CC) -c $(CFLAGS) $(INCDIR) lights.cc -o lights.o
+
+sensor.o: sensor.cc sensor.h
+	$(CC) -c $(CFLAGS) $(INCDIR) sensor.cc -o sensor.o
 
 clean:
 	rm -f $(OBJS) $(EXE) *~
