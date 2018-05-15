@@ -1,0 +1,65 @@
+Data cache of 512 bytes, 4-way set associative
+Instruction cache of 512 bytes, direct mapped
+Frequency: 18.1818 MHz
+Exec Time: 17193000 ms
+
+mpsim.x -c1 -F0,11 --is=9 --ds=9 -w
+
+
+==============================================================================
+----------------
+Power estimation
+----------------
+
+  Energy spent:
+ARM 0:
+   core:       4627895.43 [pJ]
+   icache:     7972474.34 [pJ]
+   dcache:      830709.35 [pJ]
+   scratch:          0.00 [pJ]
+   i-scratch:        0.00 [pJ]
+RAM 00:        2311050.83 [pJ]
+RAM 01:        1996577.59 [pJ]
+RAM 02:              0.00 [pJ]
+RAM 03:              0.00 [pJ]
+Bus 0:
+   typ:              0.00 [pJ]
+   max:              0.00 [pJ]
+   min:              0.00 [pJ]
+-------------------------------------
+Partial sums:
+   ARM cores:  4627895.43 [pJ]
+   icaches:    7972474.34 [pJ]
+   dcaches:     830709.35 [pJ]
+   scratches:        0.00 [pJ]
+   i-scratches:      0.00 [pJ]
+RAMs:          4307628.42 [pJ]
+DMAs:                0.00 [pJ]
+Bridges:             0.00 [pJ]
+Buses:
+   typ:              0.00 [pJ]
+   max:              0.00 [pJ]
+   min:              0.00 [pJ]
+-------------------------------------
+-------------------------------------
+Total:        17738707.54 [pJ] typ
+Total:        17738707.54 [pJ] max
+Total:        17738707.54 [pJ] min
+------------------------------------------------------------------------------
+
+  Power spent:
+ARM 0:
+   core:             0.27 [mW]
+   icache:           0.46 [mW]
+   dcache:           0.05 [mW]
+   scratch:          0.00 [mW]
+   i-scratch:        0.00 [mW]
+RAM 00:              0.13 [mW]
+RAM 01:              0.12 [mW]
+RAM 02:              0.00 [mW]
+RAM 03:              0.00 [mW]
+Bus 0:
+   typ:              0.00 [mW]
+   max:              0.00 [mW]
+   min:              0.00 [mW]
+==============================================================================

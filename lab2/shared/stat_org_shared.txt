@@ -1,0 +1,106 @@
+
+Frequency: 200 MHz
+Exec time: 14 ms
+mpsim.x -c3 -w
+
+
+Wait cycles total
+SWARM 0: 767167
+SWARM 1: 560930
+SWARM 2: 758896
+
+Pipeline stalls
+SWARM 0: 421937
+SWARM 1: 296648
+SWARM 2: 457637
+
+Bus busy                      = 925438 master system cycles (44.89% of 2061534)
+Bus transferring data         = 333968 master system cycles (16.20% of 2061534, 36.09% of 925438)
+Bus Accesses                  = 383962 (207333 SR, 165574 SW, 11055 BR, 0 BW: 218388 R, 165574 W)
+
+
+==============================================================================
+----------------
+Power estimation
+----------------
+
+  Energy spent:
+ARM 0:
+   core:     133122768.45 [pJ]
+   icache:   146740555.90 [pJ]
+   dcache:    34361964.12 [pJ]
+   scratch:          0.00 [pJ]
+   i-scratch:        0.00 [pJ]
+ARM 1:
+   core:      97349483.93 [pJ]
+   icache:   109842649.25 [pJ]
+   dcache:    25001162.83 [pJ]
+   scratch:          0.00 [pJ]
+   i-scratch:        0.00 [pJ]
+ARM 2:
+   core:     132546261.54 [pJ]
+   icache:   140941700.47 [pJ]
+   dcache:    33004833.84 [pJ]
+   scratch:          0.00 [pJ]
+   i-scratch:        0.00 [pJ]
+RAM 00:       15689761.17 [pJ]
+RAM 01:       12059689.38 [pJ]
+RAM 02:        6763855.07 [pJ]
+RAM 03:        7160538.44 [pJ]
+RAM 04:              0.00 [pJ]
+RAM 05:              0.00 [pJ]
+Bus 0:
+   typ:              0.00 [pJ]
+   max:              0.00 [pJ]
+   min:              0.00 [pJ]
+-------------------------------------
+Partial sums:
+   ARM cores:363018513.91 [pJ]
+   icaches:  397524905.62 [pJ]
+   dcaches:   92367960.79 [pJ]
+   scratches:        0.00 [pJ]
+   i-scratches:      0.00 [pJ]
+RAMs:         41673844.06 [pJ]
+DMAs:                0.00 [pJ]
+Bridges:             0.00 [pJ]
+Buses:
+   typ:              0.00 [pJ]
+   max:              0.00 [pJ]
+   min:              0.00 [pJ]
+-------------------------------------
+-------------------------------------
+Total:       894585224.39 [pJ] typ
+Total:       894585224.39 [pJ] max
+Total:       894585224.39 [pJ] min
+------------------------------------------------------------------------------
+
+  Power spent:
+ARM 0:
+   core:             9.43 [mW]
+   icache:          10.39 [mW]
+   dcache:           2.43 [mW]
+   scratch:          0.00 [mW]
+   i-scratch:        0.00 [mW]
+ARM 1:
+   core:             9.44 [mW]
+   icache:           7.78 [mW]
+   dcache:           1.77 [mW]
+   scratch:          0.00 [mW]
+   i-scratch:        0.00 [mW]
+ARM 2:
+   core:             9.39 [mW]
+   icache:           9.98 [mW]
+   dcache:           2.34 [mW]
+   scratch:          0.00 [mW]
+   i-scratch:        0.00 [mW]
+RAM 00:              1.52 [mW]
+RAM 01:              1.17 [mW]
+RAM 02:              0.66 [mW]
+RAM 03:              0.69 [mW]
+RAM 04:              0.00 [mW]
+RAM 05:              0.00 [mW]
+Bus 0:
+   typ:              0.00 [mW]
+   max:              0.00 [mW]
+   min:              0.00 [mW]
+==============================================================================
